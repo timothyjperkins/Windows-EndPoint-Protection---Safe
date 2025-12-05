@@ -19,6 +19,7 @@ Does NOT enable:<br>
 <br>
 Usage:<br>
 Set-ProcessMitigation -PolicyFilePath https://github.com/timothyjperkins/Windows-EndPoint-Protection---Safe/blob/main/Endpoint%20Protection%20-%20Safe.xml<br>
+Or run the "Endpoint Protection - Safe.ps1" script.<br>
 <br>
 Revert to Windows Defaults:<br>
-Run the "Revert" script.<br>
+Run the "Endpoint Protection - Revert.ps1" script.<br>
