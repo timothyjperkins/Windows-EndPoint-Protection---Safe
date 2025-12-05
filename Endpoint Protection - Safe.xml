@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MitigationPolicy xmlns="http://schemas.microsoft.com/2015/08/windows/mitigationpolicy">
+  <SystemConfig>
+    <!-- SAFE SYSTEM-LEVEL MITIGATIONS -->
+
+    <!-- Turn ON: DEP -->
+    <DEP Enable="true"/>
+
+    <!-- Turn ON: ASLR (safe level), but NO mandatory ASLR -->
+    <ASLR Enable="true" ForceRelocateImages="false"/>
+
+    <!-- Bottom-up ASLR (safe, non-breaking) -->
+    <BottomUpASLR Enable="true"/>
+
+    <!-- Structured Exception Handler Overwrite Protection -->
+    <SEHOP Enable="true"/>
+
+    <!-- Control Flow Guard -->
+    <ControlFlowGuard Enable="true"/>
+
+    <!-- Disable Extension Points (safe, recommended) -->
+    <ExtensionPointDisable Enable="true"/>
+
+    <!-- Strict Handle Checks -->
+    <StrictHandleCheck Enable="true"/>
+
+    <!-- DO NOT enable Block Remote Images (your request)
+         So: NoRemoteImages="false" -->
+    <ImageLoad OverrideBlockRemoteImages="false"/>
+
+    <!-- Disable Win32k system calls (system-wide safe implementation) -->
+    <Win32kSystemCall Disable="true"/>
+
+    <!-- Payload Mitigations -->
+    <PayloadRestrictions Enable="true"/>
+    <ExportAddressFilter Enable="true"/>
+    <ImportAddressFilter Enable="true"/>
+    <StackPivot Enable="true"/>
+
+    <!-- DO NOT harden with LowIntegrity or NonMicrosoft image blocks -->
+    <!-- (These cause problems in PowerShell 5.1 admin scenarios) -->
+
+  </SystemConfig>
+
+  <!-- NO per‑program mitigations for full admin compatibility -->
+  <AppConfig/>
+</MitigationPolicy>
