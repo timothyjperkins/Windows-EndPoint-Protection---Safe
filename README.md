@@ -16,6 +16,7 @@ Does NOT enable:
   Per‑application mitigations (you can ask me to add them later)
 
 Usage:
-Set-ProcessMitigation -PolicyFilePath https://github.com/timothyjperkins/Windows-EndPoint-Protection---Safe/ExploitProtection-Safe.xml
+Set-ProcessMitigation -PolicyFilePath https://github.com/timothyjperkins/Windows-EndPoint-Protection---Safe/blob/main/Endpoint%20Protection%20-%20Safe.xml
 
 Revert to Windows Defaults:
+Run the "Revert" script.
