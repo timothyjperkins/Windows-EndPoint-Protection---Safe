@@ -1,0 +1,1 @@
+Set-ProcessMitigation -PolicyFilePath https://github.com/timothyjperkins/Windows-EndPoint-Protection---Safe/blob/main/Endpoint%20Protection%20-%20Safe.xml
