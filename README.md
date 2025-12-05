@@ -1,6 +1,5 @@
 # Windows-EndPoint-Protection---Safe
-PowerShell 5.1 script to enable certain parts of Microsoft Windows Endoint Protection
-XML to enable features of Microsoft's EndPoint Protection without removing vital administrative features or disabling remote images.<br>
+PowerShell 5.1 script to enable certain parts of Microsoft Windows Endoint Protection without removing vital administrative features or disabling remote images.<br>
 <br>
 Enables:<br>
   Microsoft‑recommended system mitigations<br>
