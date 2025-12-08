@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MitigationPolicy xmlns="http://schemas.microsoft.com/2015/08/windows/mitigationpolicy">
+
+  <!-- ========================================================= -->
+  <!--  SYSTEM-WIDE HARDENED CONFIGURATION (Your Settings)       -->
+  <!-- ========================================================= -->
   <SystemConfig>
 
     <!-- CORE MEMORY SAFETY -->
@@ -24,59 +28,81 @@
     <StrictHandleCheck Enable="true"/>
 
     <!-- SAFE IMAGE LOAD SETTINGS -->
-    <!-- Remote images not blocked (compatibility) -->
     <ImageLoad OverrideBlockRemoteImages="false"/>
 
-    <!-- WIN32K: DO NOT DISABLE (breaks interactive apps) -->
+    <!-- WIN32K SYSTEM CALLS ALLOWED -->
     <Win32kSystemCall Disable="false"/>
 
-    <!-- OPTIONALLY ENABLE (SAFE) -->
-    <!-- Enable system call restrictions where supported -->
+    <!-- OPTIONALLY ENABLED: SAFE -->
     <SystemCallFilter Enable="true"/>
 
   </SystemConfig>
 
-  <!-- NO per-program overrides -->
-  <AppConfig/>
-</MitigationPolicy>
-<?xml version="1.0" encoding="UTF-8"?>
-<MitigationPolicy xmlns="http://schemas.microsoft.com/2015/08/windows/mitigationpolicy">
-  <SystemConfig>
+  <!-- ========================================================= -->
+  <!--  PER-APPLICATION OVERRIDES FOR REMOTE ACCESS TOOLS        -->
+  <!-- ========================================================= -->
+  <AppConfig>
 
-    <!-- CORE MEMORY SAFETY -->
-    <DEP Enable="true"/>
-    <SEHOP Enable="true"/>
+    <!-- ================================================ -->
+    <!--   ATERA NATIVE REMOTE ACCESS                     -->
+    <!-- ================================================ -->
+    <App Id="C:\Program Files\Atera Networks\AteraAgent\bin\RemoteAccess.exe">
+      <!-- Remote tools require inter-process access -->
+      <StrictHandleCheck Enable="false"/>
+      <!-- Some remote modules use allowed extension points -->
+      <ExtensionPointDisable Enable="false"/>
+      <!-- Avoid breakage in helper modules -->
+      <PayloadRestrictions Enable="false"/>
+      <ExportAddressFilter Enable="false"/>
+      <ImportAddressFilter Enable="false"/>
+      <StackPivot Enable="false"/>
+    </App>
 
-    <!-- ASLR: STRONG, BUT NO FORCED RELOCATION -->
-    <ASLR Enable="true" ForceRelocateImages="false"/>
-    <BottomUpASLR Enable="true"/>
+    <!-- ================================================ -->
+    <!--   SPLASHTOP STREAMER                             -->
+    <!-- ================================================ -->
+    <!-- Main service -->
+    <App Id="C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\SRServer.exe">
+      <StrictHandleCheck Enable="false"/>
+      <ExtensionPointDisable Enable="false"/>
+      <PayloadRestrictions Enable="false"/>
+      <ExportAddressFilter Enable="false"/>
+      <ImportAddressFilter Enable="false"/>
+      <StackPivot Enable="false"/>
+    </App>
 
-    <!-- CONTROL FLOW SAFETY -->
-    <ControlFlowGuard Enable="true"/>
+    <!-- Session manager -->
+    <App Id="C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\SRManager.exe">
+      <StrictHandleCheck Enable="false"/>
+      <ExtensionPointDisable Enable="false"/>
+      <PayloadRestrictions Enable="false"/>
+      <ExportAddressFilter Enable="false"/>
+      <ImportAddressFilter Enable="false"/>
+      <StackPivot Enable="false"/>
+    </App>
 
-    <!-- SAFE PAYLOAD MITIGATIONS -->
-    <PayloadRestrictions Enable="true"/>
-    <ExportAddressFilter Enable="true"/>
-    <ImportAddressFilter Enable="true"/>
-    <StackPivot Enable="true"/>
+    <!-- ================================================ -->
+    <!--   TEAMVIEWER                                     -->
+    <!-- ================================================ -->
+    <App Id="C:\Program Files\TeamViewer\TeamViewer.exe">
+      <StrictHandleCheck Enable="false"/>
+      <ExtensionPointDisable Enable="false"/>
+      <PayloadRestrictions Enable="false"/>
+      <ExportAddressFilter Enable="false"/>
+      <ImportAddressFilter Enable="false"/>
+      <StackPivot Enable="false"/>
+    </App>
 
-    <!-- CROSS-PROCESS / EXTENSION-POINT PROTECTIONS -->
-    <ExtensionPointDisable Enable="true"/>
-    <StrictHandleCheck Enable="true"/>
+    <!-- TeamViewer service process -->
+    <App Id="C:\Program Files\TeamViewer\TeamViewer_Service.exe">
+      <StrictHandleCheck Enable="false"/>
+      <ExtensionPointDisable Enable="false"/>
+      <PayloadRestrictions Enable="false"/>
+      <ExportAddressFilter Enable="false"/>
+      <ImportAddressFilter Enable="false"/>
+      <StackPivot Enable="false"/>
+    </App>
 
-    <!-- SAFE IMAGE LOAD SETTINGS -->
-    <!-- Remote images not blocked (compatibility) -->
-    <ImageLoad OverrideBlockRemoteImages="false"/>
+  </AppConfig>
 
-    <!-- WIN32K: DO NOT DISABLE (breaks interactive apps) -->
-    <Win32kSystemCall Disable="false"/>
-
-    <!-- OPTIONALLY ENABLE (SAFE) -->
-    <!-- Enable system call restrictions where supported -->
-    <SystemCallFilter Enable="true"/>
-
-  </SystemConfig>
-
-  <!-- NO per-program overrides -->
-  <AppConfig/>
 </MitigationPolicy>
