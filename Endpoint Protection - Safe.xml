@@ -1,47 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MitigationPolicy xmlns="http://schemas.microsoft.com/2015/08/windows/mitigationpolicy">
   <SystemConfig>
-    <!-- SAFE SYSTEM-LEVEL MITIGATIONS -->
 
-    <!-- Turn ON: DEP -->
+    <!-- CORE MEMORY SAFETY -->
     <DEP Enable="true"/>
-
-    <!-- Turn ON: ASLR (safe level), but NO mandatory ASLR -->
-    <ASLR Enable="true" ForceRelocateImages="false"/>
-
-    <!-- Bottom-up ASLR (safe, non-breaking) -->
-    <BottomUpASLR Enable="true"/>
-
-    <!-- Structured Exception Handler Overwrite Protection -->
     <SEHOP Enable="true"/>
 
-    <!-- Control Flow Guard -->
+    <!-- ASLR: STRONG, BUT NO FORCED RELOCATION -->
+    <ASLR Enable="true" ForceRelocateImages="false"/>
+    <BottomUpASLR Enable="true"/>
+
+    <!-- CONTROL FLOW SAFETY -->
     <ControlFlowGuard Enable="true"/>
 
-    <!-- Disable Extension Points (safe, recommended) -->
-    <ExtensionPointDisable Enable="true"/>
-
-    <!-- Strict Handle Checks -->
-    <StrictHandleCheck Enable="true"/>
-
-    <!-- DO NOT enable Block Remote Images (your request)
-         So: NoRemoteImages="false" -->
-    <ImageLoad OverrideBlockRemoteImages="false"/>
-
-    <!-- Disable Win32k system calls (system-wide safe implementation) -->
-    <Win32kSystemCall Disable="true"/>
-
-    <!-- Payload Mitigations -->
+    <!-- SAFE PAYLOAD MITIGATIONS -->
     <PayloadRestrictions Enable="true"/>
     <ExportAddressFilter Enable="true"/>
     <ImportAddressFilter Enable="true"/>
     <StackPivot Enable="true"/>
 
-    <!-- DO NOT harden with LowIntegrity or NonMicrosoft image blocks -->
-    <!-- (These cause problems in PowerShell 5.1 admin scenarios) -->
+    <!-- CROSS-PROCESS / EXTENSION-POINT PROTECTIONS -->
+    <ExtensionPointDisable Enable="true"/>
+    <StrictHandleCheck Enable="true"/>
+
+    <!-- SAFE IMAGE LOAD SETTINGS -->
+    <!-- Remote images not blocked (compatibility) -->
+    <ImageLoad OverrideBlockRemoteImages="false"/>
+
+    <!-- WIN32K: DO NOT DISABLE (breaks interactive apps) -->
+    <Win32kSystemCall Disable="false"/>
+
+    <!-- OPTIONALLY ENABLE (SAFE) -->
+    <!-- Enable system call restrictions where supported -->
+    <SystemCallFilter Enable="true"/>
 
   </SystemConfig>
 
-  <!-- NO per‑program mitigations for full admin compatibility -->
+  <!-- NO per-program overrides -->
+  <AppConfig/>
+</MitigationPolicy>
+<?xml version="1.0" encoding="UTF-8"?>
+<MitigationPolicy xmlns="http://schemas.microsoft.com/2015/08/windows/mitigationpolicy">
+  <SystemConfig>
+
+    <!-- CORE MEMORY SAFETY -->
+    <DEP Enable="true"/>
+    <SEHOP Enable="true"/>
+
+    <!-- ASLR: STRONG, BUT NO FORCED RELOCATION -->
+    <ASLR Enable="true" ForceRelocateImages="false"/>
+    <BottomUpASLR Enable="true"/>
+
+    <!-- CONTROL FLOW SAFETY -->
+    <ControlFlowGuard Enable="true"/>
+
+    <!-- SAFE PAYLOAD MITIGATIONS -->
+    <PayloadRestrictions Enable="true"/>
+    <ExportAddressFilter Enable="true"/>
+    <ImportAddressFilter Enable="true"/>
+    <StackPivot Enable="true"/>
+
+    <!-- CROSS-PROCESS / EXTENSION-POINT PROTECTIONS -->
+    <ExtensionPointDisable Enable="true"/>
+    <StrictHandleCheck Enable="true"/>
+
+    <!-- SAFE IMAGE LOAD SETTINGS -->
+    <!-- Remote images not blocked (compatibility) -->
+    <ImageLoad OverrideBlockRemoteImages="false"/>
+
+    <!-- WIN32K: DO NOT DISABLE (breaks interactive apps) -->
+    <Win32kSystemCall Disable="false"/>
+
+    <!-- OPTIONALLY ENABLE (SAFE) -->
+    <!-- Enable system call restrictions where supported -->
+    <SystemCallFilter Enable="true"/>
+
+  </SystemConfig>
+
+  <!-- NO per-program overrides -->
   <AppConfig/>
 </MitigationPolicy>
